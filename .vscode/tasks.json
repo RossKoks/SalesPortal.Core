@@ -3,13 +3,20 @@
     "command": "dotnet",
     "isShellCommand": true,
     "args": [],
-    "tasks": [
-        {
+    "tasks": [{
             "taskName": "build",
             "args": [
-                ""
+                "src/Domain"
             ],
             "isBuildCommand": true,
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "test",
+            "args": [
+                "test/Domain.Tests"
+            ],
+            "isBuildCommand": false,
             "problemMatcher": "$msCompile"
         }
     ]
