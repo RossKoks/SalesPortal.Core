@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6C4C43EC-D4C5-4576-9818-3BAF32ACA902}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Domain", "src\Domain\Domain.xproj", "{E3A33173-4A7E-48CC-BEBF-FB66B0A2546B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{80A91ACA-A726-4DCF-89C1-7B0C9632682C}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Domain.Tests", "test\Domain.Tests\Domain.Tests.xproj", "{3F613859-2D79-4640-A993-35F442EE15DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E470F48A-A9E7-40F8-8A8B-4984C806F36F}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E3A33173-4A7E-48CC-BEBF-FB66B0A2546B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3A33173-4A7E-48CC-BEBF-FB66B0A2546B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3A33173-4A7E-48CC-BEBF-FB66B0A2546B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3A33173-4A7E-48CC-BEBF-FB66B0A2546B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F613859-2D79-4640-A993-35F442EE15DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F613859-2D79-4640-A993-35F442EE15DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F613859-2D79-4640-A993-35F442EE15DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F613859-2D79-4640-A993-35F442EE15DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E3A33173-4A7E-48CC-BEBF-FB66B0A2546B} = {6C4C43EC-D4C5-4576-9818-3BAF32ACA902}
+		{3F613859-2D79-4640-A993-35F442EE15DF} = {80A91ACA-A726-4DCF-89C1-7B0C9632682C}
+	EndGlobalSection
+EndGlobal
