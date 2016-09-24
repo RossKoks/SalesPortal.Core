@@ -15,11 +15,9 @@ namespace Domain.Repositories.Implamentations
 
         public void Dispose()
         {
-            if (_connection?.State == ConnectionState.Open)
-            {
-                _connection.Close();
-                _connection.Dispose();
-            }
+            if (_connection?.State != ConnectionState.Open) return;
+            _connection.Close();
+            _connection.Dispose();
         }
 
         public IDbConnection Connection
