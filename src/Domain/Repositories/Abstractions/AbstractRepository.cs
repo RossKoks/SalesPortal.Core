@@ -22,9 +22,7 @@ namespace Domain.Repositories.Abstractions
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                connection.Open();
                 var result = connection.Query<T>(procedureName, obj, commandType: CommandType.StoredProcedure)?.FirstOrDefault();
-                connection.Close();
                 return Result<T>.Wrap(result);
             }
         }
@@ -33,10 +31,10 @@ namespace Domain.Repositories.Abstractions
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                connection.Open();
-                var result = connection.QueryMultiple(procedureName, obj, commandType: CommandType.StoredProcedure);
-                connection.Close();
-                return Result<IEnumerable<T>>.Wrap(result?.Read<T>());
+                using (var result = connection.QueryMultiple(procedureName, obj, commandType: CommandType.StoredProcedure))
+                {
+                    return Result<IEnumerable<T>>.Wrap(result?.Read<T>());
+                }
             }
         }
 
@@ -44,9 +42,7 @@ namespace Domain.Repositories.Abstractions
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                await connection.OpenAsync();
                 var result = await connection.QueryAsync<T>(procedureName, obj, commandType: CommandType.StoredProcedure);
-                connection.Close();
                 return Result<T>.Wrap(result?.FirstOrDefault());
             }
         }
@@ -55,11 +51,11 @@ namespace Domain.Repositories.Abstractions
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                await connection.OpenAsync();
-                var queryResult = await connection.QueryMultipleAsync(procedureName, obj, commandType: CommandType.StoredProcedure);
-                var result = await (queryResult?.ReadAsync<T>() ?? Task.FromResult<IEnumerable<T>>(null));
-                connection.Close();
-                return Result<IEnumerable<T>>.Wrap(result);
+                using (var reader = await connection.QueryMultipleAsync(procedureName, obj, commandType: CommandType.StoredProcedure))
+                {
+                    var result = await (reader?.ReadAsync<T>() ?? Task.FromResult<IEnumerable<T>>(null));
+                    return Result<IEnumerable<T>>.Wrap(result);
+                }
             }
         }
     }
