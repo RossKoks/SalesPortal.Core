@@ -33,5 +33,10 @@ namespace SalesPortal.Core.Models
         {
             return new Result<TResult>(result, true, messages);
         }
+
+        public static Result<T> Error(params string[] messages)
+        {
+            return new Result<T>(default(T), false, messages);
+        }
     }
 }
