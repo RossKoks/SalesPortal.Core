@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SalesPortal.Core.Models
 {
@@ -25,10 +23,15 @@ namespace SalesPortal.Core.Models
             return new Result<TResult>(result, result != null, messages);
         }
 
+        public static Result<TResult> Wrap<TResult>(TResult value, Func<TResult, bool> predicate,
+            params string[] messages)
+        {
+            return new Result<TResult>(value, predicate(value), messages);
+        }
+
         public static Result<TResult> WrapValue<TResult>(TResult result, params string[] messages) where TResult : struct
         {
             return new Result<TResult>(result, true, messages);
         }
-
     }
 }

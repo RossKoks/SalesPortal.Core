@@ -2,10 +2,11 @@
     "version": "1.0.0-*",
 
     "dependencies": {
-      "Microsoft.NETCore.App": {
-        "version": "1.0.1",
-        "type": "platform"
-      }
+        "Microsoft.NETCore.App": {
+            "version": "1.0.1",
+            "type": "platform"
+        },
+        "Dapper": "1.50.2"
     },
 
     "frameworks": {

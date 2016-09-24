@@ -17,6 +17,26 @@ namespace Domain.Tests.Models
         }
 
         [Fact]
+        public void Test_Wrap_Value_With_Func_When_Value_Is_Empty_String()
+        {
+            string value = string.Empty;
+            var testResult = Result<int>.Wrap(value, x => !string.IsNullOrEmpty(x));
+            testResult.Should().NotBeNull();
+            testResult.IsSuccess.Should().BeFalse();
+            testResult.Value.Should().Be(value);
+        }
+
+        [Fact]
+        public void Test_Wrap_Value_With_Func()
+        {
+            int value = 22;
+            var testResult = Result<int>.Wrap(value, x => x == 22);
+            testResult.Should().NotBeNull();
+            testResult.IsSuccess.Should().BeTrue();
+            testResult.Value.Should().Be(value);
+        }
+
+        [Fact]
         public void Test_Wrap_When_Value_Is_Not_Null()
         {
             string value = "test";
@@ -33,7 +53,7 @@ namespace Domain.Tests.Models
             var testResult = Result<int>.WrapValue(value);
             testResult.Should().NotBeNull();
             testResult.IsSuccess.Should().BeTrue();
-            testResult.Value.Should().Equals(value);
+            testResult.Value.Should().Be(value);
         }
     }
 }
