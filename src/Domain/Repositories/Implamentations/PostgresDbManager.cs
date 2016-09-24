@@ -4,7 +4,7 @@ using Npgsql;
 
 namespace Domain.Repositories.Implamentations
 {
-    public class PostgresDbManager : IDbManager
+    public sealed class PostgresDbManager : IDbManager
     {
         private readonly IDbConnection _connection;
 
