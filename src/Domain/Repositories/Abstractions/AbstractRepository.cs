@@ -13,9 +13,9 @@ namespace Domain.Repositories.Abstractions
     {
         public string ConnectionString { get; }
 
-        protected AbstractRepository(string baseConnectionString)
+        protected AbstractRepository(IConfiguration configuration)
         {
-            ConnectionString = baseConnectionString;
+            ConnectionString = configuration.ConnectionString;
         }
 
         public Result<T> FillObject<T>(string connectionString, string procedureName, object obj) where T: class
