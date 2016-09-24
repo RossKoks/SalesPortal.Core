@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Domain.Repositories.Interfaces;
+using Npgsql;
 using SalesPortal.Core.Models;
 
 namespace Domain.Repositories.Abstractions
@@ -20,7 +20,7 @@ namespace Domain.Repositories.Abstractions
 
         public Result<T> FillObject<T>(string connectionString, string procedureName, object obj) where T: class
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new NpgsqlConnection(connectionString))
             {
                 var result = connection.Query<T>(procedureName, obj, commandType: CommandType.StoredProcedure)?.FirstOrDefault();
                 return Result<T>.Wrap(result);
@@ -29,7 +29,7 @@ namespace Domain.Repositories.Abstractions
 
         public Result<IEnumerable<T>> FillCollection<T>(string connectionString, string procedureName, object obj)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new NpgsqlConnection(connectionString))
             {
                 using (var result = connection.QueryMultiple(procedureName, obj, commandType: CommandType.StoredProcedure))
                 {
@@ -40,7 +40,7 @@ namespace Domain.Repositories.Abstractions
 
         public async Task<Result<T>> FillObjectAsync<T>(string connectionString, string procedureName, object obj) where T : class
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new NpgsqlConnection(connectionString))
             {
                 var result = await connection.QueryAsync<T>(procedureName, obj, commandType: CommandType.StoredProcedure);
                 return Result<T>.Wrap(result?.FirstOrDefault());
@@ -49,7 +49,7 @@ namespace Domain.Repositories.Abstractions
 
         public async Task<Result<IEnumerable<T>>> FillCollectionAsync<T>(string connectionString, string procedureName, object obj)
         {
-            using (var connection = new SqlConnection(connectionString))
+            using (var connection = new NpgsqlConnection(connectionString))
             {
                 using (var reader = await connection.QueryMultipleAsync(procedureName, obj, commandType: CommandType.StoredProcedure))
                 {
