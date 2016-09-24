@@ -55,5 +55,23 @@ namespace Domain.Tests.Models
             testResult.IsSuccess.Should().BeTrue();
             testResult.Value.Should().Be(value);
         }
+
+        [Fact]
+        public void Test_Error_Wrap_Value_Type()
+        {
+            var testResult = Result<int>.Error("Error");
+            testResult.Should().NotBeNull();
+            testResult.IsSuccess.Should().BeFalse();
+            testResult.Value.Should().Be(default(int));
+        }
+
+        [Fact]
+        public void Test_Error_Wrap_Reference_Type()
+        {
+            var testResult = Result<string>.Error("Error");
+            testResult.Should().NotBeNull();
+            testResult.IsSuccess.Should().BeFalse();
+            testResult.Value.Should().Be(default(string));
+        }
     }
 }
