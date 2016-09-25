@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using SalesPortal.Core.Models;
 
 namespace Domain.Repositories.Interfaces
 {
-    public interface IRepository
+    public interface IRepository : IDisposable
     {
-        T Fill<T>(string connectionString, string procedureName, object obj);
-        IEnumerable<T> FillCollection<T>(string connectionString, string procedureName, object obj);
+        Result<T> FillObject<T>(string procedureName, object obj) where T: class;
+        Result<IEnumerable<T>> FillCollection<T>(string procedureName, object obj);
+        Task<Result<T>> FillObjectAsync<T>(string procedureName, object obj) where T: class;
+        Task<Result<IEnumerable<T>>> FillCollectionAsync<T>(string procedureName, object obj);
     }
 }
