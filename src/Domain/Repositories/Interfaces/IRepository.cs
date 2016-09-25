@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using SalesPortal.Core.Models;
 
-namespace Domain.Repositories.Interfaces
+namespace SalesPortal.Core.Interfaces
 {
     public interface IRepository : IDisposable
     {

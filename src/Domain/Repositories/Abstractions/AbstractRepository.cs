@@ -6,7 +6,7 @@ using Dapper;
 using Domain.Repositories.Interfaces;
 using SalesPortal.Core.Models;
 
-namespace Domain.Repositories.Abstractions
+namespace SalesPortal.Core.Abstractions
 {
     public abstract class AbstractRepository : IRepository
     {

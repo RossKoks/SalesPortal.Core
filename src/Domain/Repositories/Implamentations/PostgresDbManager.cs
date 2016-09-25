@@ -2,7 +2,7 @@
 using Domain.Repositories.Interfaces;
 using Npgsql;
 
-namespace Domain.Repositories.Implamentations
+namespace SalesPortal.Core.Implementations
 {
     public sealed class PostgresDbManager : IDbManager
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Domain.Repositories.Interfaces
+namespace SalesPortal.Core.Interfaces
 {
     public interface IDbManager : IDisposable
     {
