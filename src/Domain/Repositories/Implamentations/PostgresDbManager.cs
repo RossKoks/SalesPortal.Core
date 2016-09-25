@@ -1,6 +1,6 @@
 ﻿using System.Data;
-using Domain.Repositories.Interfaces;
 using Npgsql;
+using SalesPortal.Core.Interfaces;
 
 namespace SalesPortal.Core.Implementations
 {

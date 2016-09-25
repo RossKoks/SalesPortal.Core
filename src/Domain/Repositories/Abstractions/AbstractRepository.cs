@@ -3,7 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
-using Domain.Repositories.Interfaces;
+using SalesPortal.Core.Interfaces;
 using SalesPortal.Core.Models;
 
 namespace SalesPortal.Core.Abstractions
