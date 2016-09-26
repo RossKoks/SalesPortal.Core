@@ -1,6 +1,6 @@
-﻿using Domain.Services.Interfaces;
+﻿using SalesPortal.Core.Services.Interfaces;
 
-namespace Domain.Services.Implementations
+namespace SalesPortal.Core.Services.Implementations
 {
     public class AbstractService : IService
     {

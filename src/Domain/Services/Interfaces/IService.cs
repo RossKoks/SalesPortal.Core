@@ -1,4 +1,4 @@
-﻿namespace Domain.Services.Interfaces
+﻿namespace SalesPortal.Core.Services.Interfaces
 {
     public interface IService
     {
