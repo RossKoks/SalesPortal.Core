@@ -1,6 +1,9 @@
 using Xunit;
 using FluentAssertions;
 using SalesPortal.Core.Models;
+using Domain.Enums;
+using System.Collections.Generic;
+using System;
 
 namespace Domain.Tests.Models
 {
@@ -72,6 +75,33 @@ namespace Domain.Tests.Models
             testResult.Should().NotBeNull();
             testResult.IsSuccess.Should().BeFalse();
             testResult.Value.Should().Be(default(string));
+        }
+
+        /* DML Result */
+
+        [Fact]
+        public void Test_Dml_Failed()
+        {
+            var value = Tuple.Create(item1: default(string), item2: "FAILED");
+            var testResult = Result<string, DMLResultType>.WrapDml(value);
+            testResult.Should().NotBeNull();
+            testResult.IsSuccess.Should().BeFalse();
+            testResult.Value.Should().Be(default(string));
+            testResult.ResultType.Should().NotBeNull();
+            testResult.ResultType.Should().Be(DMLResultType.FAILED);
+        }
+
+        [Fact]
+        public void Test_Dml_Succeed()
+        {
+            var value =  Tuple.Create(item1: 1, item2: "SUCCEED");
+            var testResult = Result<int, DMLResultType>.WrapDml(value);
+            testResult.Should().NotBeNull();
+            testResult.IsSuccess.Should().BeTrue();
+            testResult.Value.Should().Be(1);
+            testResult.ResultType.Should().NotBeNull();
+            testResult.ResultType.Should().Be(DMLResultType.SUCCEED);
+
         }
     }
 }
