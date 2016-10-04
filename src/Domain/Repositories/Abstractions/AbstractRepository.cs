@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,27 +18,28 @@ namespace SalesPortal.Core.Abstractions
             _db = manager;
         }
 
-        public Result<T> FillObject<T>(string procedureName, object obj) where T : class
+        public void Dispose()
         {
-            var result =
-                _db.Connection.Query<T>(procedureName, obj, commandType: CommandType.StoredProcedure)?.FirstOrDefault();
-            return Result<T>.Wrap(result);
+            _db?.Dispose();
+        }
+
+        public Result<T, TResultType> ExecuteQuery<T, TResultType>(string procedureName, object obj)
+            where TResultType : struct, IComparable, IFormattable, IConvertible
+        {
+            var results = _db.Connection.Query<Tuple<T, string>>(procedureName
+                 , obj
+                 , commandType: CommandType.StoredProcedure
+             );
+
+            return Result<T, TResultType>.WrapDml<T>(results?.FirstOrDefault());
         }
 
         public Result<IEnumerable<T>> FillCollection<T>(string procedureName, object obj)
         {
-            using (
-                var result = _db.Connection.QueryMultiple(procedureName, obj, commandType: CommandType.StoredProcedure))
+            using (var result = _db.Connection.QueryMultiple(procedureName, obj, commandType: CommandType.StoredProcedure))
             {
                 return Result<IEnumerable<T>>.Wrap(result?.Read<T>());
             }
-        }
-
-        public async Task<Result<T>> FillObjectAsync<T>(string procedureName, object obj) where T : class
-        {
-            var result =
-                await _db.Connection.QueryAsync<T>(procedureName, obj, commandType: CommandType.StoredProcedure);
-            return Result<T>.Wrap(result?.FirstOrDefault());
         }
 
         public async Task<Result<IEnumerable<T>>> FillCollectionAsync<T>(string procedureName, object obj)
@@ -52,9 +54,23 @@ namespace SalesPortal.Core.Abstractions
             }
         }
 
-        public void Dispose()
+        public Result<T> FillObject<T>(string procedureName, object obj)
+                                            where T : class
         {
-            _db?.Dispose();
+            var result = _db.Connection.Query<T>(procedureName
+                , obj
+                , commandType: CommandType.StoredProcedure
+            )?.FirstOrDefault();
+
+            return Result<T>.Wrap(result);
+        }
+        public async Task<Result<T>> FillObjectAsync<T>(string procedureName, object obj)
+            where T : class
+        {
+            var result = await _db.Connection.QueryAsync<T>(procedureName
+                , obj
+                , commandType: CommandType.StoredProcedure);
+            return Result<T>.Wrap(result?.FirstOrDefault());
         }
     }
 }
