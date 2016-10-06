@@ -101,7 +101,19 @@ namespace Domain.Tests.Models
             testResult.Value.Should().Be(1);
             testResult.ResultType.Should().NotBeNull();
             testResult.ResultType.Should().Be(DMLResultType.SUCCEED);
+        }
 
+        [Fact]
+        public void Test_Dml_Succeed_without_enum()
+        {
+            var value = Tuple.Create(item1: 1, item2: default(string));
+            var testResult = Result<int, DMLResultType>.WrapDml(value);
+            testResult.Should().NotBeNull();
+            testResult.IsSuccess.Should().BeTrue();
+            testResult.Value.Should().Be(1);
+            var exception = Record.Exception(() => testResult.ResultType);
+            Assert.NotNull(exception);
+            Assert.IsType<NotSupportedException>(exception);
         }
     }
 }

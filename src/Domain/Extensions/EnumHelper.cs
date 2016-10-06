@@ -35,7 +35,6 @@ namespace Domain.Extensions
         public static TResult ToEnumByEnumMember<TResult>(this string source)
             where TResult : struct, IComparable, IFormattable, IConvertible
         {
-
             foreach (TResult item in Enum.GetValues(typeof(TResult)))
             {
                 if (item.GetStringValue() == source)
