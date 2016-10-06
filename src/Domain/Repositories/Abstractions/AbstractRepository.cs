@@ -31,7 +31,17 @@ namespace SalesPortal.Core.Abstractions
                  , commandType: CommandType.StoredProcedure
              );
 
-            return Result<T, TResultType>.WrapDml<T>(results?.FirstOrDefault());
+            return Result<T, TResultType>.WrapDml(results?.FirstOrDefault());
+        }
+
+        public async Task<Result<T, TResultType>> ExecuteQueryAsync<T, TResultType>(string procedureName, object obj) where TResultType : struct, IComparable, IFormattable, IConvertible
+        {
+            var results = await _db.Connection.QueryAsync<Tuple<T, string>>(procedureName
+                 , obj
+                 , commandType: CommandType.StoredProcedure
+             );
+
+            return Result<T, TResultType>.WrapDml(results?.FirstOrDefault());
         }
 
         public Result<IEnumerable<T>> FillCollection<T>(string procedureName, object obj)
@@ -71,6 +81,22 @@ namespace SalesPortal.Core.Abstractions
                 , obj
                 , commandType: CommandType.StoredProcedure);
             return Result<T>.Wrap(result?.FirstOrDefault());
+        }
+
+        public Result<T> FillScalar<T>(string procedureName, object obj) where T : struct, IComparable, IFormattable, IConvertible
+        {
+            var result = _db.Connection.ExecuteScalar<T>(procedureName
+               , obj
+               , commandType: CommandType.StoredProcedure);
+            return Result<T>.WrapScalar(result);
+        }
+
+        public async Task<Result<T>> FillScalarAsync<T>(string procedureName, object obj) where T : struct, IComparable, IFormattable, IConvertible
+        {
+            var result = await _db.Connection.ExecuteScalarAsync<T>(procedureName
+                 , obj
+                 , commandType: CommandType.StoredProcedure);
+            return Result<T>.WrapScalar(result);
         }
     }
 }

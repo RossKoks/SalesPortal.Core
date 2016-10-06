@@ -40,6 +40,11 @@ namespace SalesPortal.Core.Models
         {
             return new Result<T>(default(T), false, messages);
         }
+
+        public static Result<T> WrapScalar<T>(T result) where T : struct, IComparable, IFormattable, IConvertible
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class Result<T, TResultType> : Result<T>
