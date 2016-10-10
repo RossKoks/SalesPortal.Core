@@ -1,23 +1,26 @@
 {
-  "version": "1.0.0-*",
-  "dependencies": {
-    "Dapper": "1.50.2",
-    "Microsoft.NETCore.App": {
-      "version": "1.0.1",
-      "type": "platform"
+    "version": "1.0.0-*",
+    "dependencies": {
+        "Dapper": "1.50.2",
+        "Microsoft.NETCore.App": {
+            "version": "1.0.1",
+            "type": "platform"
+        },
+        "Npgsql": "3.1.8",
+        "System.Runtime.Serialization.Primitives": "4.1.1"
     },
-    "Npgsql": "3.1.8",
-    "System.Runtime.Serialization.Primitives": "4.1.1"
-  },
-  "frameworks": {
-    "netcoreapp1.0": {
-      "imports": [
-        "dotnet5.6",
-        "portable-net45+win8"
-      ]
+    "frameworks": {
+        "netcoreapp1.0": {
+            "imports": [
+                "dotnet5.6",
+                "portable-net45+win8"
+            ]
+        }
+    },
+    "tools": {
+        "Microsoft.DotNet.Watcher.Tools": "1.0.0-*"
+    },
+    "tooling": {
+        "defaultNamespace": "SalesPortal.Core"
     }
-  },
-  "tooling": {
-    "defaultNamespace": "SalesPortal.Core"
-  }
 }
